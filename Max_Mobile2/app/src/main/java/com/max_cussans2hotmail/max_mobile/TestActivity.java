@@ -7,6 +7,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import android.content.Intent;
+// add below imports for location purposes
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+//intents imports
+import java.util.Locale;
+import android.net.Uri;
 
 public class TestActivity extends Activity {
 
@@ -27,9 +35,42 @@ public class TestActivity extends Activity {
         // Set the TextView to the string message -
         // which was passed as a parameter from the HelloWorld activity
         textView.setText(message);
-
         // Set the TextView widget as the activity UI layout
         setContentView(textView);
+
+        // get location code
+        // Acquire a reference to the system Location Manager
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        // Use network provider to get last known location
+        String locationProvider = LocationManager.GPS_PROVIDER;
+        Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
+        double lat;
+        double longi;
+        if(lastKnownLocation != null)
+        {
+            lat = lastKnownLocation.getLatitude();
+            longi = lastKnownLocation.getLongitude();
+        }
+        else
+        {
+            //store the lat/long coordinates of last known location
+            lat = 0;
+            longi = 0;
+        }
+
+
+        // bind the lat long coordinates to the programmatically created TextView for displaying
+        textView.setText("Location:\n" + lat +"\n" + longi);
+
+        // Set the text view as the activity layout
+        // note we could create a new layout file to do this too
+        //setContentView(textView);
+
+        // Intent for Google Maps, if another map app handles the geo tag it may show more than one app option
+        String uri = String.format(Locale.ENGLISH, "geo:%f,%f", lat, longi);
+        Intent intent_map = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(intent_map);
     }
 
     @Override
