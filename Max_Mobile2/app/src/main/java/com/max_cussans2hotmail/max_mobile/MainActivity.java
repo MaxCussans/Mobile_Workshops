@@ -7,7 +7,7 @@ import android.view.MenuItem;
 // add below for helloworld
 import android.view.View;
 import android.widget.*;
-
+import android.content.Intent;
 
 public class MainActivity extends Activity {
 
@@ -18,12 +18,28 @@ public class MainActivity extends Activity {
     }
 
     /** Called when the user touches the button */
-    public void textChangeButton(View view) {
-        // find the textview control to change
+    public void textChangeButton(View view)
+    {
+        // create an intent to start the activity called TestActivity
+        Intent intent = new Intent(this, TestActivity.class);
+
+        // find the textView control to change first
         TextView tv1 = (TextView)findViewById(R.id.changeText);
+
         // set visibility to visible
         tv1.setVisibility(View.VISIBLE);
 
+        // edit textView control value
+        tv1.setText("Hello TestActivity!");
+
+        // get the new string value of the textView control
+        String message = tv1.getText().toString();
+
+        // pass string value of textView to new TestActivity
+        intent.putExtra("testParameter", message);
+
+        // start TestActivity!
+        startActivity(intent);
     }
 
     @Override
