@@ -18,10 +18,39 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click me!"
+        android:text="Maps"
         android:id="@+id/button"
-        android:layout_below="@+id/changeText"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="21dp"
-        android:onClick="textChangeButton" />
+        android:onClick="textChangeButton"
+        android:layout_below="@+id/changeText"
+        android:layout_alignStart="@+id/cameraButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Camera"
+        android:id="@+id/cameraButton"
+        android:onClick="cameraIntent"
+        android:layout_above="@+id/button"
+        android:layout_toStartOf="@+id/changeText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Internet"
+        android:id="@+id/browserButton"
+        android:onClick="browserIntent"
+        android:layout_marginBottom="19dp"
+        android:layout_above="@+id/cameraButton"
+        android:layout_alignStart="@+id/cameraButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calendar"
+        android:id="@+id/calendarButton"
+        android:onClick="eventIntent"
+        android:layout_marginBottom="21dp"
+        android:layout_above="@+id/browserButton"
+        android:layout_alignStart="@+id/browserButton" />
 </RelativeLayout>

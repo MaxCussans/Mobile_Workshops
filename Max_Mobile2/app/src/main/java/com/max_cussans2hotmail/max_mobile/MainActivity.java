@@ -1,13 +1,18 @@
 package com.max_cussans2hotmail.max_mobile;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 // add below for helloworld
 import android.view.View;
 import android.widget.*;
 import android.content.Intent;
+
+import java.util.Calendar;
 
 public class MainActivity extends Activity {
 
@@ -40,6 +45,37 @@ public class MainActivity extends Activity {
 
         // start TestActivity!
         startActivity(intent);
+    }
+
+    public void cameraIntent(View view)
+    {
+
+        int REQUEST_IMAGE_CAPTURE = 1;
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    public void browserIntent(View view)
+    {
+        String url = "http://www.imdb.com/title/";
+        String movieID = "tt0816692";
+        Uri webpage = Uri.parse(url + movieID);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(intent);
+    }
+
+    public void eventIntent(View view)
+    {
+        Intent calendarIntent = new Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI);
+        Calendar beginTime = Calendar.getInstance();
+        beginTime.set(2015, 12, 25, 00, 00);
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(2015, 12, 25, 00, 01);
+        calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis());
+        calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
+        calendarIntent.putExtra(CalendarContract.Events.TITLE, "Xmas!");
+        calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "North Pole");
+        startActivity(calendarIntent);
     }
 
     @Override
